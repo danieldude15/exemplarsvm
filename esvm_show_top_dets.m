@@ -121,10 +121,11 @@ for k = 1:maxk
 
     if CACHE_FILES && (fileexists(filer) || (mymkdir_dist(filerlock) == 0))
       counter = counter + 1;
-      fprintf(1,'Already showed detection # %d, score=%.3f\n', k, bbs(bb(counter),end));
+      if(counter<=size(bb))
+          fprintf(1,'Already showed detection # %d, score=%.3f\n', k, bbs(bb(counter),end));
+      end
       continue
     end
-
     fprintf(1,'Showing detection # %d, score=%.3f\n', k, bbs(bb(counter),end));
     allbbs(k,:) = bbs(bb(counter),:);
     

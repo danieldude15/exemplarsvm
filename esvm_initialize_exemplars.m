@@ -183,7 +183,7 @@ if length(models_name) == 0
 end
 
 STRIP_FILE = 0;
-DELETE_INITIAL = 0;
+DELETE_INITIAL = 1;
 
 models = esvm_load_models(params.dataset_params, models_name, allfiles, ...
                           CACHE_FILE, STRIP_FILE, DELETE_INITIAL);

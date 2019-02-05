@@ -45,7 +45,11 @@ d3 = max(0,cb(3) - models{index}.sizeI(2));
 d4 = max(0,cb(4) - models{index}.sizeI(1));
 mypad = max([d1,d2,d3,d4]);
 PADDER = round(mypad)+2;
-
+if (isfield(models{index},'d3I') && isfield(models{index},'I'))
+  [rows, columns ,~] = size(convert_to_I(models{index}.I));
+  [I3d,map,alphachannel] = imread(models{index}.d3I);
+  I3d = imresize(I3d, [rows columns]);
+end
 if isfield(models{index},'I')
   I = convert_to_I(models{index}.I);
 else

@@ -48,7 +48,7 @@ dataset_params = esvm_get_voc_dataset(dataset_directory,...
                                       results_directory);
 
 
-dataset_params.display = 1;
+                                  
 %dataset_params.dump_images = 1;
 
 % Issue warning if lock files are present

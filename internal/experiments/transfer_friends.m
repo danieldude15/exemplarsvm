@@ -1,6 +1,6 @@
 function [fboxes,cs] = transfer_friends(models, bboxes)
 %transfer friends onto detections
-error('deprecated function.. see VOCinit');
+%error('deprecated function.. see VOCinit');
 
 VOCinit;
 % if isfield(models{i},'detect_add_flip') && models{i}.detect_add_flip == 1
