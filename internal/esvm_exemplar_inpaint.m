@@ -204,14 +204,39 @@ goodsy = find(targety>=1 & targety<=size(I2,2));
 targetx = targetx(goodsx);
 targety = targety(goodsy);
 
-I2(targetx,targety,:) = ...
-    I2(targetx,targety,:).*(1-newalpha(goodsx,goodsy,:)) + ...
-    newI(goodsx,goodsy,:).*(newalpha(goodsx,goodsy,:));
+% I2(targetx,targety,:) = ...
+%     I2(targetx,targety,:).*(1-newalpha(goodsx,goodsy,:)) + ...
+%     newI(goodsx,goodsy,:).*(newalpha(goodsx,goodsy,:));
 
-Iblack(targetx,targety,:) = ...
-    Iblack(targetx,targety,:).*(1-newalpha(goodsx,goodsy,:)) + ...
-    newI(goodsx,goodsy,:).*(newalpha(goodsx,goodsy,:));
+for i=1:size(newI,1)
+    for j=1:size(newI,2)
+       if (newI(i,j,1)==0 && newI(i,j,2)==0 && newI(i,j,3)==0)
+          %disp(["skipping i=",i," j=",j," |",newI(i,j,1), newI(i,j,2) , newI(i,j,3)]);
+          continue 
+       end
+       I2(targetx(1)-1+i,targety(1)-1+j,1) = newI(i,j,1);
+       I2(targetx(1)-1+i,targety(1)-1+j,2) = newI(i,j,2);
+       I2(targetx(1)-1+i,targety(1)-1+j,3) = newI(i,j,3);
+       %disp(["I2[",targetx(1)-1+i,"][",targety(1)-1+j,"] = ",newI(i,j,1)]);
+    end
+end
 
+% Iblack(targetx,targety,:) = ...
+%     Iblack(targetx,targety,:).*(1-newalpha(goodsx,goodsy,:)) + ...
+%     newI(goodsx,goodsy,:).*(newalpha(goodsx,goodsy,:));
+
+for i=1:size(newI,1)
+    for j=1:size(newI,2)
+       if (newI(i,j,1)==0 && newI(i,j,2)==0 && newI(i,j,3)==0)
+          %disp(["skipping i=",i," j=",j," |",newI(i,j,1), newI(i,j,2) , newI(i,j,3)]);
+          continue 
+       end
+       Iblack(targetx(1)-1+i,targety(1)-1+j,1) = newI(i,j,1);
+       Iblack(targetx(1)-1+i,targety(1)-1+j,2) = newI(i,j,2);
+       Iblack(targetx(1)-1+i,targety(1)-1+j,3) = newI(i,j,3);
+       %disp(["I2[",targetx(1)-1+i,"][",targety(1)-1+j,"] = ",newI(i,j,1)]);
+    end
+end
 
 %mask(targetx,targety,:) = 1;
 
@@ -235,8 +260,9 @@ alphamap(alphamap==0) = 0;
 %alphamap(alphamap>0) = .5;
 %alphamap(alphamap==0) = .7;
 alphamap = repmat(alphamap,[1 1 3]);
-Itotal = Ia.*alphamap + Ib.*(1-alphamap);
 
+%Itotal = Ia.*alphamap + Ib.*(1-alphamap);
+Itotal = I2;
 I2 = Itotal;
 
 function save_me_as_pdf(stuff,index)

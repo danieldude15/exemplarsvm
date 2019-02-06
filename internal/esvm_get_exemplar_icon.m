@@ -76,7 +76,11 @@ if loadseg == 1 && exist('VOCopts','var')
 end
 
 cb = models{index}.gt_box;    
-Iex = pad_image(I, PADDER);
+if isfield(models{index},'d3I')
+    Iex = pad_image(I3d, PADDER);
+else
+    Iex = pad_image(I, PADDER);
+end
 Iexmask = pad_image(mask,PADDER);
 cb = round(cb + PADDER);
 
@@ -84,7 +88,12 @@ Iex = Iex(cb(2):cb(4),cb(1):cb(3),:);
 Iexmask = Iexmask(cb(2):cb(4),cb(1):cb(3));
 
 cb = models{index}.model.bb(subind,1:4);
-Icb = pad_image(I, PADDER);
+if isfield(models{index},'d3I')
+    Icb = pad_image(I, PADDER);
+else
+   Icb = pad_image(I, PADDER);
+end
+
 cb = round(cb + PADDER);
 Icb = Icb(cb(2):cb(4),cb(1):cb(3),:);
 Icbmask = mask(cb(2):cb(4),cb(1):cb(3));
